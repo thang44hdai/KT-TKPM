@@ -4,23 +4,67 @@
 
 {% block content %}
 <div class="container">
-    <h2 class="text-center">Danh Sách Sách</h2>
+    <!-- Thanh danh mục sản phẩm -->
+    <h2 class="text-center mt-4">Danh mục sản phẩm</h2>
+    <div class="category-bar">
+        <a href="{% url 'book_list' %}" class="category-item active">📚 Sách</a>
+        <a href="#" class="category-item disabled">📱 Điện thoại (sắp có)</a>
+        <a href="#" class="category-item disabled">👕 Quần áo (sắp có)</a>
+    </div>
+
+    <!-- Danh mục sách -->
+    <h2 class="text-center mt-4">Danh Sách Sách</h2>
     <div class="row">
         {% for book in books %}
         <div class="col-md-4">
             <div class="card">
-                <img src="{{ book.image }}" class="card-img-top" alt="{{ book.title }}">
+                <img src="{{ book.image_url }}" class="card-img-top" alt="{{ book.title }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ book.title }}</h5>
                     <p class="card-text">{{ book.author }}</p>
-                    <p class="card-text">Giá: {{ book.price }} VNĐ</p>
+                    <p class="card-text">Giá: <strong>{{ book.price }} VNĐ</strong></p>
                     <a href="#" class="btn btn-primary">Mua ngay</a>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p>Không có sách nào.</p>
+        <p class="text-center">Không có sách nào.</p>
         {% endfor %}
     </div>
 </div>
+
+<!-- CSS -->
+<style>
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+/* Thanh danh mục */
+.category-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.category-item {
+    padding: 10px 20px;
+    background-color: #ff5722;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.category-item:hover {
+    background-color: #e64a19;
+}
+.category-item.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Card sản phẩm */
+.card {
+    margin-bottom: 20px;
+}
+</style>
 {% endblock %}
