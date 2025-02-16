@@ -5,11 +5,19 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 
 from book.models import Book
+from clothes.models import Clothes
+from mobile.models import Mobile
 
 
 def home_screen(request):
-    books = Book.objects.all()  # Lấy tất cả sách từ MongoDB
-    return render(request, 'home.html', {'books': books})
+    books = Book.objects.all()[:6]  # Lấy 6 sách nổi bật
+    mobiles = Mobile.objects.all()[:6]  # Lấy 6 điện thoại nổi bật
+    clothes_list = Clothes.objects.all()[:6]  # Lấy 6 quần áo nổi bật
+    return render(request, 'home.html', {
+        'books': books,
+        'mobiles': mobiles,
+        'clothes_list': clothes_list
+    })
 
 
 def login_screen(request):

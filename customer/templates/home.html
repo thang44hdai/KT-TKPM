@@ -7,13 +7,13 @@
     <!-- Thanh danh mục sản phẩm -->
     <h2 class="text-center mt-4">Danh mục sản phẩm</h2>
     <div class="category-bar">
-        <a href="{% url 'book_list' %}" class="category-item active">📚 Sách</a>
-        <a href="#" class="category-item disabled">📱 Điện thoại (sắp có)</a>
-        <a href="#" class="category-item disabled">👕 Quần áo (sắp có)</a>
+        <a href="{% url 'book_list' %}" class="category-item">📚 Sách</a>
+        <a href="{% url 'mobile_list' %}" class="category-item">📱 Điện thoại</a>
+        <a href="{% url 'clothes_list' %}" class="category-item">👕 Quần áo</a>
     </div>
 
-    <!-- Danh mục sách -->
-    <h2 class="text-center mt-4">Danh Sách Sách</h2>
+    <!-- Hiển thị danh mục sách -->
+    <h2 class="text-center mt-4">Sách nổi bật</h2>
     <div class="row">
         {% for book in books %}
         <div class="col-md-4">
@@ -29,6 +29,46 @@
         </div>
         {% empty %}
         <p class="text-center">Không có sách nào.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Hiển thị danh mục điện thoại -->
+    <h2 class="text-center mt-4">Điện thoại nổi bật</h2>
+    <div class="row">
+        {% for mobile in mobiles %}
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{ mobile.image_url }}" class="card-img-top" alt="{{ mobile.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ mobile.name }}</h5>
+                    <p class="card-text">Hãng: {{ mobile.brand }}</p>
+                    <p class="card-text">Giá: <strong>{{ mobile.price }} VNĐ</strong></p>
+                    <a href="#" class="btn btn-primary">Mua ngay</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">Không có điện thoại nào.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Hiển thị danh mục quần áo -->
+    <h2 class="text-center mt-4">Quần áo nổi bật</h2>
+    <div class="row">
+        {% for clothes in clothes_list %}
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{ clothes.image_url }}" class="card-img-top" alt="{{ clothes.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ clothes.name }}</h5>
+                    <p class="card-text">Loại: {{ clothes.category }}</p>
+                    <p class="card-text">Giá: <strong>{{ clothes.price }} VNĐ</strong></p>
+                    <a href="#" class="btn btn-primary">Mua ngay</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">Không có quần áo nào.</p>
         {% endfor %}
     </div>
 </div>
@@ -56,10 +96,6 @@
 }
 .category-item:hover {
     background-color: #e64a19;
-}
-.category-item.disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
 }
 
 /* Card sản phẩm */

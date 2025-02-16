@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Danh Sách Quần Áo{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Danh Sách Quần Áo</h2>
+    <div class="row">
+        {% for clothes in clothes_list %}
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{ clothes.image_url }}" class="card-img-top" alt="{{ clothes.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ clothes.name }}</h5>
+                    <p class="card-text">Loại: {{ clothes.category }}</p>
+                    <p class="card-text">Giá: {{ clothes.price }} VNĐ</p>
+                    <a href="#" class="btn btn-primary">Mua ngay</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Không có quần áo nào.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
