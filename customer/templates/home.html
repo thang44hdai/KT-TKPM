@@ -1,58 +1,26 @@
-<!DOCTYPE html>
-<html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang Chủ - Cửa Hàng Sách</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
-    />
-    <style>
-      body {
-        background-color: #f8f9fa;
-      }
-      .book-card {
-        transition: transform 0.3s, box-shadow 0.3s;
-      }
-      .book-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
-      .card img {
-        height: 250px;
-        object-fit: cover;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container mt-5">
-      <h2 class="text-center text-primary">📚 Danh Sách Sách</h2>
-      <div class="row mt-4">
+{% extends 'base.html' %}
+
+{% block title %}Trang Chủ{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Danh Sách Sách</h2>
+    <div class="row">
         {% for book in books %}
         <div class="col-md-4">
-          <div class="card book-card mb-4 shadow-sm">
-            <img
-              src="{{ book.image }}"
-              class="card-img-top"
-              alt="{{ book.title }}"
-            />
-            <div class="card-body">
-              <h5 class="card-title">{{ book.title }}</h5>
-              <p class="card-text text-muted">
-                Tác giả: <strong>{{ book.author }}</strong>
-              </p>
-              <p class="text-danger fw-bold">{{ book.price }} VNĐ</p>
-              <a href="#" class="btn btn-success w-100">📖 Xem chi tiết</a>
+            <div class="card">
+                <img src="{{ book.image }}" class="card-img-top" alt="{{ book.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">{{ book.author }}</p>
+                    <p class="card-text">Giá: {{ book.price }} VNĐ</p>
+                    <a href="#" class="btn btn-primary">Mua ngay</a>
+                </div>
             </div>
-          </div>
         </div>
         {% empty %}
-        <p class="text-center">Chưa có sách nào trong danh sách!</p>
+        <p>Không có sách nào.</p>
         {% endfor %}
-      </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
+</div>
+{% endblock %}
