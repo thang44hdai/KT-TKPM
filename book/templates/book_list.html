@@ -8,7 +8,7 @@
     <div class="book-container">
         {% for book in books %}
         <div class="book-item">
-            <img src="{{ book.image_url }}" alt="{{ book.title }}">
+            <img src="{{ book.image }}" alt="{{ book.title }}">
             <h3>{{ book.title }}</h3>
             <p>Tác giả: {{ book.author }}</p>
             <p>Giá: <strong>{{ book.price }} VNĐ</strong></p>

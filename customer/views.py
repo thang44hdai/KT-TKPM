@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 
 from book.models import Book
 from clothes.models import Clothes
+from customer.models import Customer
 from mobile.models import Mobile
 
 
@@ -21,19 +22,27 @@ def home_screen(request):
 
 
 def login_screen(request):
-    template = loader.get_template('login.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
-
-
-def customer_login(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect("")
-        else:
-            messages.error(request, "Tên đăng nhập hoặc mật khẩu không đúng!")
-    return render(request, "customer/login.html")
+
+        try:
+            # Tìm user trong bảng Customer
+            customer = Customer.objects.get(username=username)
+
+            # Kiểm tra mật khẩu (nếu lưu plain text)
+            if password == customer.password:
+                request.session["customer_id"] = customer.id  # Lưu vào session
+                request.session["username"] = customer.username
+                return redirect("home")
+            else:
+                messages.error(request, "Mật khẩu không đúng!")
+        except Customer.DoesNotExist:
+            messages.error(request, "Người dùng không tồn tại!")
+
+    return render(request, "login.html")
+
+
+def logout_screen(request):
+    request.session.flush()  # Xóa session
+    return redirect("home")

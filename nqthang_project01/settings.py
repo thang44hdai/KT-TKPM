@@ -78,11 +78,18 @@ WSGI_APPLICATION = 'nqthang_project01.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'default': {  # MySQL là default
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'shop',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4'
+        }
     },
-    'default': {
+    'mongodb': {
         'ENGINE': 'djongo',
         'NAME': 'project01',
         'CLIENT': {
@@ -92,9 +99,9 @@ DATABASES = {
             'authSource': 'admin'
         }
     }
-
 }
 
+DATABASE_ROUTERS = ['database_router.DatabaseRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
