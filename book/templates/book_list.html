@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Danh sách sách{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Danh sách sách</h2>
+    <div class="book-container">
+        {% for book in books %}
+        <div class="book-item">
+            <img src="{{ book.image }}" alt="{{ book.title }}">
+            <h3>{{ book.title }}</h3>
+            <p>Tác giả: {{ book.author }}</p>
+            <p>Giá: <strong>{{ book.price }} VNĐ</strong></p>
+            <button>Mua ngay</button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+.book-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.book-item {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+.book-item img {
+    width: 100%;
+    border-radius: 5px;
+}
+button {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Danh Sách Điện Thoại{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Danh Sách Điện Thoại</h2>
+    <div class="row">
+        {% for mobile in mobiles %}
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{ mobile.image_url }}" class="card-img-top" alt="{{ mobile.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ mobile.name }}</h5>
+                    <p class="card-text">Hãng: {{ mobile.brand }}</p>
+                    <p class="card-text">Giá: {{ mobile.price }} VNĐ</p>
+                    <a href="#" class="btn btn-primary">Mua ngay</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Không có điện thoại nào.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

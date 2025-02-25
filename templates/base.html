@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Trang Bán Hàng{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .navbar {
+        background-color: #343a40;
+      }
+      .navbar-brand,
+      .nav-link {
+        color: white !important;
+      }
+      footer {
+        text-align: center;
+        padding: 10px;
+        background-color: #343a40;
+        color: white;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 🔹 Header cố định -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Shop Online</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sản phẩm</a>
+              <!-- Chưa có, để tạm -->
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Giỏ hàng</a>
+              <!-- Chưa có, để tạm -->
+            </li>
+
+            {% if request.session.customer_id %}
+            <li class="nav-item">
+              <a
+                class="btn btn-outline-light ms-2 text-danger"
+                href="{% url 'customer_logout' %}"
+              >
+                Đăng xuất
+              </a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a
+                class="btn btn-outline-light ms-2"
+                href="{% url 'customer_login' %}"
+              >
+                Đăng nhập
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 🔹 Nội dung trang -->
+    <div class="container mt-4">{% block content %}{% endblock %}</div>
+
+    <!-- 🔹 Footer -->
+    <footer>© 2025 Shop Online. All rights reserved.</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
