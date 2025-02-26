@@ -119,6 +119,9 @@ REST_FRAMEWORK = {
     ),
 }
 
+MONGO_URI = "mongodb+srv://thangquang8888:thang4423@cluster0.eek4h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGO_DB_NAME = "shop"
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
