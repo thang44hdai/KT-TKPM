@@ -1,26 +1,26 @@
 class DatabaseRouter:
-    mysql_tables = {"customer", "name", "address", "django_session"}  # Các bảng trong MySQL
+    mysql_tables = {"customer", "name", "address", "django_session"}  # Dùng MySQL
+    postgresql_tables = {"cart"}  # Dùng PostgreSQL
 
     def db_for_read(self, model, **hints):
-        db = "default" if model._meta.db_table in self.mysql_tables else "mongodb"
-        print(f"📌 Reading {model._meta.db_table} from {db}")
-        return db
+        if model._meta.db_table in self.mysql_tables:
+            return "default"  # MySQL
+        elif model._meta.db_table in self.postgresql_tables:
+            return "postgresql"  # PostgreSQL
+        return "mongodb"  # Mặc định là MongoDB
 
     def db_for_write(self, model, **hints):
-        db = "default" if model._meta.db_table in self.mysql_tables else "mongodb"
-        print(f"📌 Writing {model._meta.db_table} to {db}")
-        return db
-
-    def allow_relation(self, obj1, obj2, **hints):
-        """Cho phép quan hệ giữa các model trong cùng một database"""
-        if obj1._state.db == obj2._state.db:
-            return True
-        return None
+        if model._meta.db_table in self.mysql_tables:
+            return "default"
+        elif model._meta.db_table in self.postgresql_tables:
+            return "postgresql"
+        return "mongodb"
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
-        """Xác định migration cho từng database"""
         if db == "default":
-            return model_name in self.mysql_tables  # Chỉ migrate model thuộc MySQL
+            return model_name in self.mysql_tables
+        elif db == "postgresql":
+            return model_name in self.postgresql_tables
         elif db == "mongodb":
-            return model_name not in self.mysql_tables  # Model khác dùng MongoDB
+            return model_name not in self.mysql_tables and model_name not in self.postgresql_tables
         return None

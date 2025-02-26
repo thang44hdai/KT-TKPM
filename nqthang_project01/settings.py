@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'customer',
     'book',
     'mobile',
@@ -99,10 +100,24 @@ DATABASES = {
             'password': 'thang4423',
             'authSource': 'admin'
         }
-    }
+    },
+    'postgresql': {  # PostgreSQL cho cart
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'my_cart_db',
+        'USER': 'myuser',
+        'PASSWORD': 'thang4423',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    },
 }
 
 DATABASE_ROUTERS = ['database_router.DatabaseRouter']
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
